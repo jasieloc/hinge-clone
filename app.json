@@ -6,7 +6,8 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "hingeclone",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
+    "androidNavigationBar": { "backgroundColor": "#0a0a0a" },
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
