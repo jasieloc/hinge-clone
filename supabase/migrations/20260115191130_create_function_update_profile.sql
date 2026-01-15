@@ -17,14 +17,14 @@ security definer
 as $$
 declare 
   v_profile_id uuid;
-  declare answer jsonb;
-  declare existing_answer record;
-  declare new_answer_id uuid;
-  declare active_answer_ids uuid[] := '{}';
-  declare photo jsonb;
-  declare existing_photo record;
-  declare new_photo_id uuid;
-  declare active_photo_ids uuid[] := '{}';
+  answer jsonb;
+  existing_answer record;
+  new_answer_id uuid;
+  active_answer_ids uuid[] := '{}';
+  photo jsonb;
+  existing_photo record;
+  new_photo_id uuid;
+  active_photo_ids uuid[] := '{}';
 begin
 
 select profiles.id into v_profile_id
