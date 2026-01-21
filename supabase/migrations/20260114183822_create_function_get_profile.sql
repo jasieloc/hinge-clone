@@ -15,6 +15,7 @@ returns table (
     family_plan jsonb,
     ethnicities jsonb,
     pets jsonb,
+    ethnicity_preferences jsonb,
     answers jsonb,
     photos jsonb,
     avatar_url text
@@ -59,6 +60,12 @@ begin
       left join pets on pets.id = profile_pets.pet_id
       where profile_pets.profile_id = profiles.id
     ) as pets,
+    (
+      select coalesce(jsonb_agg(ethnicities.*), '[]'::jsonb)
+      from profile_ethnicity_preferences
+      left join ethnicities on ethnicities.id =   profile_ethnicity_preferences.ethnicity_id
+      where profile_ethnicity_preferences.profile_id = profiles.id
+    ) as ethnicity_preferences,
     (
       select coalesce(jsonb_agg(json_build_object(
         'id', profile_answers.id,
