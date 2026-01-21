@@ -13,6 +13,7 @@ returns table (
     phone text,
     children jsonb,
     family_plan jsonb,
+    ethnicities jsonb,
     pets jsonb,
     answers jsonb,
     photos jsonb,
@@ -46,6 +47,12 @@ begin
     profiles.phone,
     row_to_json(children.*)::jsonb as children,
     row_to_json(family_plans.*)::jsonb as family_plan,
+    (
+      select coalesce(jsonb_agg(ethnicities.*), '[]'::jsonb)
+      from profile_ethnicities
+      left join ethnicities on ethnicities.id = profile_ethnicities.ethnicity_id
+      where profile_ethnicities.profile_id = profiles.id
+    ) as ethnicities,
     (
       select coalesce(jsonb_agg(pets.*), '[]'::jsonb)
       from profile_pets
