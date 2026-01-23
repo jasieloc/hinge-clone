@@ -26,7 +26,7 @@ alter table "public"."ethnicities" enable row level security;
 alter table "public"."family_plans" enable row level security;
 
 
-  create table "public"."interaction" (
+  create table "public"."interactions" (
     "id" uuid not null default gen_random_uuid(),
     "created_at" timestamp with time zone not null default now(),
     "updated_at" timestamp without time zone not null default now(),
@@ -39,7 +39,7 @@ alter table "public"."family_plans" enable row level security;
       );
 
 
-alter table "public"."interaction" enable row level security;
+alter table "public"."interactions" enable row level security;
 
 
   create table "public"."interaction_status" (
@@ -150,7 +150,7 @@ CREATE UNIQUE INDEX ethnicities_pkey ON public.ethnicities USING btree (id);
 
 CREATE UNIQUE INDEX family_plans_pkey ON public.family_plans USING btree (id);
 
-CREATE UNIQUE INDEX interaction_pkey ON public.interaction USING btree (id);
+CREATE UNIQUE INDEX interactions_pkey ON public.interactions USING btree (id);
 
 CREATE UNIQUE INDEX interaction_status_pkey ON public.interaction_status USING btree (id);
 
@@ -178,7 +178,7 @@ alter table "public"."ethnicities" add constraint "ethnicities_pkey" PRIMARY KEY
 
 alter table "public"."family_plans" add constraint "family_plans_pkey" PRIMARY KEY using index "family_plans_pkey";
 
-alter table "public"."interaction" add constraint "interaction_pkey" PRIMARY KEY using index "interaction_pkey";
+alter table "public"."interactions" add constraint "interactions_pkey" PRIMARY KEY using index "interactions_pkey";
 
 alter table "public"."interaction_status" add constraint "interaction_status_pkey" PRIMARY KEY using index "interaction_status_pkey";
 
@@ -198,29 +198,29 @@ alter table "public"."profiles" add constraint "profiles_pkey" PRIMARY KEY using
 
 alter table "public"."prompts" add constraint "prompts_pkey" PRIMARY KEY using index "prompts_pkey";
 
-alter table "public"."interaction" add constraint "interaction_actor_id_fkey" FOREIGN KEY (actor_id) REFERENCES public.profiles(id) not valid;
+alter table "public"."interactions" add constraint "interactions_actor_id_fkey" FOREIGN KEY (actor_id) REFERENCES public.profiles(id) not valid;
 
-alter table "public"."interaction" validate constraint "interaction_actor_id_fkey";
+alter table "public"."interactions" validate constraint "interactions_actor_id_fkey";
 
-alter table "public"."interaction" add constraint "interaction_answer_id_fkey" FOREIGN KEY (answer_id) REFERENCES public.profile_answers(id) not valid;
+alter table "public"."interactions" add constraint "interactions_answer_id_fkey" FOREIGN KEY (answer_id) REFERENCES public.profile_answers(id) not valid;
 
-alter table "public"."interaction" validate constraint "interaction_answer_id_fkey";
+alter table "public"."interactions" validate constraint "interactions_answer_id_fkey";
 
-alter table "public"."interaction" add constraint "interaction_photo_id_fkey" FOREIGN KEY (photo_id) REFERENCES public.profile_photos(id) not valid;
+alter table "public"."interactions" add constraint "interactions_photo_id_fkey" FOREIGN KEY (photo_id) REFERENCES public.profile_photos(id) not valid;
 
-alter table "public"."interaction" validate constraint "interaction_photo_id_fkey";
+alter table "public"."interactions" validate constraint "interactions_photo_id_fkey";
 
-alter table "public"."interaction" add constraint "interaction_status_id_fkey" FOREIGN KEY (status_id) REFERENCES public.interaction_status(id) not valid;
+alter table "public"."interactions" add constraint "interactions_status_id_fkey" FOREIGN KEY (status_id) REFERENCES public.interaction_status(id) not valid;
 
-alter table "public"."interaction" validate constraint "interaction_status_id_fkey";
+alter table "public"."interactions" validate constraint "interactions_status_id_fkey";
 
-alter table "public"."interaction" add constraint "interaction_target_id_fkey" FOREIGN KEY (target_id) REFERENCES public.profiles(id) not valid;
+alter table "public"."interactions" add constraint "interactions_target_id_fkey" FOREIGN KEY (target_id) REFERENCES public.profiles(id) not valid;
 
-alter table "public"."interaction" validate constraint "interaction_target_id_fkey";
+alter table "public"."interactions" validate constraint "interactions_target_id_fkey";
 
-alter table "public"."interaction" add constraint "interaction_updated_by_fkey" FOREIGN KEY (updated_by) REFERENCES public.profiles(id) not valid;
+alter table "public"."interactions" add constraint "interactions_updated_by_fkey" FOREIGN KEY (updated_by) REFERENCES public.profiles(id) not valid;
 
-alter table "public"."interaction" validate constraint "interaction_updated_by_fkey";
+alter table "public"."interactions" validate constraint "interactions_updated_by_fkey";
 
 alter table "public"."profile_answers" add constraint "profile_answers_profile_id_fkey" FOREIGN KEY (profile_id) REFERENCES public.profiles(id) ON DELETE CASCADE not valid;
 
@@ -436,61 +436,61 @@ grant truncate on table "public"."family_plans" to "service_role";
 
 grant update on table "public"."family_plans" to "service_role";
 
-grant delete on table "public"."interaction" to "anon";
+grant delete on table "public"."interactions" to "anon";
 
-grant insert on table "public"."interaction" to "anon";
+grant insert on table "public"."interactions" to "anon";
 
-grant references on table "public"."interaction" to "anon";
+grant references on table "public"."interactions" to "anon";
 
-grant select on table "public"."interaction" to "anon";
+grant select on table "public"."interactions" to "anon";
 
-grant trigger on table "public"."interaction" to "anon";
+grant trigger on table "public"."interactions" to "anon";
 
-grant truncate on table "public"."interaction" to "anon";
+grant truncate on table "public"."interactions" to "anon";
 
-grant update on table "public"."interaction" to "anon";
+grant update on table "public"."interactions" to "anon";
 
-grant delete on table "public"."interaction" to "authenticated";
+grant delete on table "public"."interactions" to "authenticated";
 
-grant insert on table "public"."interaction" to "authenticated";
+grant insert on table "public"."interactions" to "authenticated";
 
-grant references on table "public"."interaction" to "authenticated";
+grant references on table "public"."interactions" to "authenticated";
 
-grant select on table "public"."interaction" to "authenticated";
+grant select on table "public"."interactions" to "authenticated";
 
-grant trigger on table "public"."interaction" to "authenticated";
+grant trigger on table "public"."interactions" to "authenticated";
 
-grant truncate on table "public"."interaction" to "authenticated";
+grant truncate on table "public"."interactions" to "authenticated";
 
-grant update on table "public"."interaction" to "authenticated";
+grant update on table "public"."interactions" to "authenticated";
 
-grant delete on table "public"."interaction" to "postgres";
+grant delete on table "public"."interactions" to "postgres";
 
-grant insert on table "public"."interaction" to "postgres";
+grant insert on table "public"."interactions" to "postgres";
 
-grant references on table "public"."interaction" to "postgres";
+grant references on table "public"."interactions" to "postgres";
 
-grant select on table "public"."interaction" to "postgres";
+grant select on table "public"."interactions" to "postgres";
 
-grant trigger on table "public"."interaction" to "postgres";
+grant trigger on table "public"."interactions" to "postgres";
 
-grant truncate on table "public"."interaction" to "postgres";
+grant truncate on table "public"."interactions" to "postgres";
 
-grant update on table "public"."interaction" to "postgres";
+grant update on table "public"."interactions" to "postgres";
 
-grant delete on table "public"."interaction" to "service_role";
+grant delete on table "public"."interactions" to "service_role";
 
-grant insert on table "public"."interaction" to "service_role";
+grant insert on table "public"."interactions" to "service_role";
 
-grant references on table "public"."interaction" to "service_role";
+grant references on table "public"."interactions" to "service_role";
 
-grant select on table "public"."interaction" to "service_role";
+grant select on table "public"."interactions" to "service_role";
 
-grant trigger on table "public"."interaction" to "service_role";
+grant trigger on table "public"."interactions" to "service_role";
 
-grant truncate on table "public"."interaction" to "service_role";
+grant truncate on table "public"."interactions" to "service_role";
 
-grant update on table "public"."interaction" to "service_role";
+grant update on table "public"."interactions" to "service_role";
 
 grant delete on table "public"."interaction_status" to "anon";
 
